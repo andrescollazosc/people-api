@@ -16,6 +16,7 @@ public class PersonRepository : IPersonRepository
 
     public async Task Delete(Person person)
     {
+        await Task.CompletedTask;
     }
 
     public async Task<Person> GetById(Guid id)

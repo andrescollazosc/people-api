@@ -29,6 +29,7 @@ public static class DependencyInjectionExtensions
         Services.AddScoped<IGetPersonUseCase, GetPersonUseCase>();
         Services.AddScoped<ICreatePersonUseCase, CreatePersonUseCase>();
         Services.AddScoped<IGetAllPersonsUseCase, GetAllPersonsUseCase>();
+        Services.AddScoped<IDeletePersonUseCase, DeletePersonUseCase>();
     }
 
 }

@@ -10,12 +10,14 @@ namespace Frydek.People.App.Controllers;
 public class PersonController(
     IGetPersonUseCase getPersonUseCase,
     ICreatePersonUseCase createPersonUseCase,
-    IGetAllPersonsUseCase getAllPersonsUseCase
+    IGetAllPersonsUseCase getAllPersonsUseCase,
+    IDeletePersonUseCase deletePersonUseCase
 ) : Controller
 {
     private IGetPersonUseCase GetPersonUseCase { get; } = getPersonUseCase;
     private ICreatePersonUseCase CreatePersonUseCase { get; } = createPersonUseCase;
     private IGetAllPersonsUseCase GetAllPersonsUseCase { get; } = getAllPersonsUseCase;
+    private IDeletePersonUseCase DeletePersonUseCase { get; } = deletePersonUseCase;
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(string id)
@@ -46,6 +48,21 @@ public class PersonController(
         var person = await CreatePersonUseCase.ExecuteAsync(dto);
 
         return CreatedAtAction(nameof(Get), new { id = person.Id }, person);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(string id)
+    {
+        try
+        {
+            await DeletePersonUseCase.ExecuteAsync(Guid.Parse(id));
+
+            return NoContent();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
     }
 
 }
