@@ -1,6 +1,27 @@
-@Frydek.People.App_HostAddress = http://localhost:5171
+@HostAddress = http://localhost:5171
+@personId = 984c0d7a-a724-4ef5-84e3-8b8b00e00883
 
-GET {{Frydek.People.App_HostAddress}}/weatherforecast/
+### Get all persons
+GET {{HostAddress}}/api/person
 Accept: application/json
+
+### Get person by id
+GET {{HostAddress}}/api/person/{{personId}}
+Accept: application/json
+
+### Create person
+POST {{HostAddress}}/api/person
+Content-Type: application/json
+Accept: application/json
+
+{
+  "firstName": "Andres",
+  "lastName": "Collazos",
+  "email": "andres.collazos@viirtue.com",
+  "age": 30
+}
+
+### Delete person by id
+DELETE {{HostAddress}}/api/person/{{personId}}
 
 ###
