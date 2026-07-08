@@ -1,3 +1,4 @@
+using FluentValidation;
 using Frydek.People.Application.Dtos;
 using Frydek.People.Application.Mappings;
 using Frydek.People.Application.Repositories;
@@ -6,13 +7,17 @@ using Frydek.People.Core.Exceptions;
 namespace Frydek.People.Application.UseCases.Impl;
 
 public class UpdatePersonUseCase(
+    IValidator<UpdatePersonDto> validator,
     IPersonRepository personRepository
 ) : IUpdatePersonUseCase
 {
+    private IValidator<UpdatePersonDto> Validator { get; } = validator;
     private IPersonRepository PersonRepository { get; } = personRepository;
 
     public async Task<PersonDto> ExecuteAsync(Guid id, UpdatePersonDto dto)
     {
+        await Validator.ValidateAndThrowAsync(dto);
+
         var person = await PersonRepository.GetById(id);
 
         if (person == null)
