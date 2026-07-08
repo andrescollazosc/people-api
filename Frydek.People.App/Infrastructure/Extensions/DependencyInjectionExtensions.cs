@@ -7,30 +7,26 @@ namespace Frydek.People.App.Infrastructure.Extensions;
 
 public static class DependencyInjectionExtensions
 {
-    private static IConfiguration Configuration { get; set; } = null!;
-    private static IServiceCollection Services { get; set; } = null!;
-
-    public static void RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection RegisterDependencies(this IServiceCollection services)
     {
-        Services = services;
-        Configuration = configuration;
-        
-        RegisterRepositories();
-        RegisterUseCases();
+        return services
+            .RegisterRepositories()
+            .RegisterUseCases();
     }
 
-    private static void RegisterRepositories()
+    private static IServiceCollection RegisterRepositories(this IServiceCollection services)
     {
-        Services.AddScoped<IPersonRepository, PersonRepository>();
-    }
-    
-    private static void RegisterUseCases()
-    {
-        Services.AddScoped<IGetPersonUseCase, GetPersonUseCase>();
-        Services.AddScoped<ICreatePersonUseCase, CreatePersonUseCase>();
-        Services.AddScoped<IGetAllPersonsUseCase, GetAllPersonsUseCase>();
-        Services.AddScoped<IUpdatePersonUseCase, UpdatePersonUseCase>();
-        Services.AddScoped<IDeletePersonUseCase, DeletePersonUseCase>();
+        services.AddScoped<IPersonRepository, PersonRepository>();
+        return services;
     }
 
+    private static IServiceCollection RegisterUseCases(this IServiceCollection services)
+    {
+        services.AddScoped<IGetPersonUseCase, GetPersonUseCase>();
+        services.AddScoped<ICreatePersonUseCase, CreatePersonUseCase>();
+        services.AddScoped<IGetAllPersonsUseCase, GetAllPersonsUseCase>();
+        services.AddScoped<IUpdatePersonUseCase, UpdatePersonUseCase>();
+        services.AddScoped<IDeletePersonUseCase, DeletePersonUseCase>();
+        return services;
+    }
 }
