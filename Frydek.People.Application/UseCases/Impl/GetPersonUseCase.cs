@@ -1,4 +1,5 @@
 using Frydek.People.Application.Dtos;
+using Frydek.People.Application.Mappings;
 using Frydek.People.Application.Repositories;
 using Frydek.People.Core.Exceptions;
 
@@ -14,18 +15,11 @@ public class GetPersonUseCase(
     {
         var person = await PersonRepository.GetById(id);
 
-        if (person == null)
+        if (person is null)
         {
             throw new NotFoundException($"Person {id} was not found.");
         }
 
-        return new PersonDto
-        (
-            person.Id,
-            person.FirstName,
-            person.LastName,
-            person.Email,
-            person.Age
-        );
+        return person.ToPersonDto();
     }
 }

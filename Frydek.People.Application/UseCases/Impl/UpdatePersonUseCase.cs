@@ -1,4 +1,5 @@
 using Frydek.People.Application.Dtos;
+using Frydek.People.Application.Mappings;
 using Frydek.People.Application.Repositories;
 using Frydek.People.Core.Exceptions;
 
@@ -29,13 +30,6 @@ public class UpdatePersonUseCase(
 
         await PersonRepository.Update(updatedPerson);
 
-        return new PersonDto
-        (
-            updatedPerson.Id,
-            updatedPerson.FirstName,
-            updatedPerson.LastName,
-            updatedPerson.Email,
-            updatedPerson.Age
-        );
+        return updatedPerson.ToPersonDto();
     }
 }

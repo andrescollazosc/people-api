@@ -1,4 +1,5 @@
 using Frydek.People.Application.Dtos;
+using Frydek.People.Application.Mappings;
 using Frydek.People.Application.Repositories;
 
 namespace Frydek.People.Application.UseCases.Impl;
@@ -13,13 +14,6 @@ public class GetAllPersonsUseCase(
     {
         var people = await PersonRepository.GetAll();
 
-        return people.Select(person => new PersonDto
-        (
-            person.Id,
-            person.FirstName,
-            person.LastName,
-            person.Email,
-            person.Age
-        ));
+        return people.Select(person => person.ToPersonDto());
     }
 }
