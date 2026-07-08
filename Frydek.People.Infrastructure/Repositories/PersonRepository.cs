@@ -12,6 +12,7 @@ public class PersonRepository : IPersonRepository
 
     public async Task Update(Person person)
     {
+        await Task.CompletedTask;
     }
 
     public async Task Delete(Person person)

@@ -11,12 +11,14 @@ public class PersonController(
     IGetPersonUseCase getPersonUseCase,
     ICreatePersonUseCase createPersonUseCase,
     IGetAllPersonsUseCase getAllPersonsUseCase,
+    IUpdatePersonUseCase updatePersonUseCase,
     IDeletePersonUseCase deletePersonUseCase
 ) : Controller
 {
     private IGetPersonUseCase GetPersonUseCase { get; } = getPersonUseCase;
     private ICreatePersonUseCase CreatePersonUseCase { get; } = createPersonUseCase;
     private IGetAllPersonsUseCase GetAllPersonsUseCase { get; } = getAllPersonsUseCase;
+    private IUpdatePersonUseCase UpdatePersonUseCase { get; } = updatePersonUseCase;
     private IDeletePersonUseCase DeletePersonUseCase { get; } = deletePersonUseCase;
 
     [HttpGet("{id}")]
@@ -48,6 +50,21 @@ public class PersonController(
         var person = await CreatePersonUseCase.ExecuteAsync(dto);
 
         return CreatedAtAction(nameof(Get), new { id = person.Id }, person);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(string id, [FromBody] UpdatePersonDto dto)
+    {
+        try
+        {
+            var person = await UpdatePersonUseCase.ExecuteAsync(Guid.Parse(id), dto);
+
+            return Ok(person);
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
     }
 
     [HttpDelete("{id}")]
