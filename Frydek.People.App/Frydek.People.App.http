@@ -22,7 +22,7 @@ Accept: application/json
 }
 
 ### Update person
-PUT {{HostAddress}}/api/people/7664cb8b-0674-4e7f-97cd-d08f34fecf6e
+PUT {{HostAddress}}/api/people/{{personId}}
 Content-Type: application/json
 Accept: application/json
 

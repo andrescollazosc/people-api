@@ -15,8 +15,6 @@ public class PersonRepository(PeopleDbContext dbContext) : IPersonRepository
 
     public async Task UpdateAsync(Person person)
     {
-        dbContext.People.Update(person);
-        
         await dbContext.SaveChangesAsync();
     }
 

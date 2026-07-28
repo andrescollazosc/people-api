@@ -1,18 +1,28 @@
 namespace Frydek.People.Core.Entities;
 
-public record Person
+public class Person
 {
-    public Guid Id { get; init; } = Guid.NewGuid();
-    public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
-    public int Age { get; set; }
-    public string Email { get; set; } = string.Empty;
+    public Guid Id { get; private set; } = Guid.NewGuid();
+    public string FirstName { get; private set; } = string.Empty;
+    public string LastName { get; private set; } = string.Empty;
+    public string Email { get; private set; } = string.Empty;
+    public int Age { get; private set; }
 
-    public void Update(string firstName, string lastName, int age, string email)
+    private Person() { }
+
+    public Person(string firstName, string lastName, string email, int age)
     {
         FirstName = firstName;
         LastName = lastName;
-        Age = age;
         Email = email;
+        Age = age;
+    }
+
+    public void Update(string firstName, string lastName, string email, int age)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+        Age = age;
     }
 }
