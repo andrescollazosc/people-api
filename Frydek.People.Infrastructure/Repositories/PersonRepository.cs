@@ -9,22 +9,12 @@ public class PersonRepository(PeopleDbContext dbContext) : IPersonRepository
     public async Task CreateAsync(Person person)
     {
         await dbContext.People.AddAsync(person);
-        
-        await dbContext.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(Person person)
-    {
-        dbContext.People.Update(person);
-        
-        await dbContext.SaveChangesAsync();
-    }
-
-    public async Task DeleteAsync(Person person)
+    public Task DeleteAsync(Person person)
     {
         dbContext.People.Remove(person);
-        
-        await dbContext.SaveChangesAsync();
+        return Task.CompletedTask;
     }
 
     public async Task<Person?> GetByIdAsync(Guid id)

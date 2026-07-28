@@ -38,7 +38,8 @@ public static class DependencyInjectionExtensions
         services.AddScoped<IGetAllPersonsUseCase, GetAllPersonsUseCase>();
         services.AddScoped<IUpdatePersonUseCase, UpdatePersonUseCase>();
         services.AddScoped<IDeletePersonUseCase, DeletePersonUseCase>();
-
+        services.AddScoped<IUnitOfWork, EfUnitOfWork<PeopleDbContext>>();
+        
         return services;
     }
 

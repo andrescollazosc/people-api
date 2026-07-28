@@ -7,13 +7,12 @@ public static class PersonMappings
 {
     public static Person ToPerson(this CreatePersonDto personDto)
     {
-        return new Person
-        {
-            FirstName = personDto.FirstName,
-            LastName = personDto.LastName,
-            Email = personDto.Email,
-            Age = personDto.Age
-        };
+        return new Person(
+            personDto.FirstName,
+            personDto.LastName,
+            personDto.Email,
+            personDto.Age
+        );
     }
 
     public static PersonDto ToPersonDto(this Person person)

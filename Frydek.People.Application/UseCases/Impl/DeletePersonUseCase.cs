@@ -4,7 +4,8 @@ using Frydek.People.Core.Exceptions;
 namespace Frydek.People.Application.UseCases.Impl;
 
 public class DeletePersonUseCase(
-    IPersonRepository personRepository
+    IPersonRepository personRepository,
+    IUnitOfWork unitOfWork
 ) : IDeletePersonUseCase
 {
     public async Task ExecuteAsync(Guid id)
@@ -17,5 +18,7 @@ public class DeletePersonUseCase(
         }
 
         await personRepository.DeleteAsync(person);
+        
+        await unitOfWork.CommitAsync();
     }
 }

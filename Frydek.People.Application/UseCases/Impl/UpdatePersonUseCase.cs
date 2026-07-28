@@ -8,7 +8,8 @@ namespace Frydek.People.Application.UseCases.Impl;
 
 public class UpdatePersonUseCase(
     IValidator<UpdatePersonDto> validator,
-    IPersonRepository personRepository
+    IPersonRepository personRepository,
+    IUnitOfWork unitOfWork
 ) : IUpdatePersonUseCase
 {
     public async Task<PersonDto> ExecuteAsync(Guid id, UpdatePersonDto dto)
@@ -22,16 +23,10 @@ public class UpdatePersonUseCase(
             throw new NotFoundException($"Person {id} was not found.");
         }
 
-        var updatedPerson = person with
-        {
-            FirstName = dto.FirstName,
-            LastName = dto.LastName,
-            Email = dto.Email,
-            Age = dto.Age
-        };
+        person.Update(dto.FirstName, dto.LastName, dto.Email, dto.Age);
+        
+        await unitOfWork.CommitAsync();
 
-        await personRepository.UpdateAsync(updatedPerson);
-
-        return updatedPerson.ToPersonDto();
+        return person.ToPersonDto();
     }
 }
