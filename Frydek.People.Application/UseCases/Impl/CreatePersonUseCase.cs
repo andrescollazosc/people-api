@@ -7,7 +7,8 @@ namespace Frydek.People.Application.UseCases.Impl;
 
 public class CreatePersonUseCase(
     IValidator<CreatePersonDto> validator,
-    IPersonRepository personRepository
+    IPersonRepository personRepository,
+    IUnitOfWork unitOfWork
 ) : ICreatePersonUseCase
 {
     public async Task<PersonDto> ExecuteAsync(CreatePersonDto dto)
@@ -17,6 +18,8 @@ public class CreatePersonUseCase(
         var person = dto.ToPerson();
 
         await personRepository.CreateAsync(person);
+        
+        await unitOfWork.CommitAsync();
 
         return person.ToPersonDto();
     }

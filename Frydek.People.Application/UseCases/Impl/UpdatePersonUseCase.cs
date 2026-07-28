@@ -8,7 +8,8 @@ namespace Frydek.People.Application.UseCases.Impl;
 
 public class UpdatePersonUseCase(
     IValidator<UpdatePersonDto> validator,
-    IPersonRepository personRepository
+    IPersonRepository personRepository,
+    IUnitOfWork unitOfWork
 ) : IUpdatePersonUseCase
 {
     public async Task<PersonDto> ExecuteAsync(Guid id, UpdatePersonDto dto)
@@ -23,8 +24,8 @@ public class UpdatePersonUseCase(
         }
 
         person.Update(dto.FirstName, dto.LastName, dto.Email, dto.Age);
-
-        await personRepository.UpdateAsync(person);
+        
+        await unitOfWork.CommitAsync();
 
         return person.ToPersonDto();
     }

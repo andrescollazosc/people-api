@@ -11,28 +11,19 @@ public class EfUnitOfWork<T> : IUnitOfWork where T : DbContext
     {
         DbContext = dbContext;
     }
-
-    public void Commit()
-    {
-        DbContext.SaveChanges();
-    }
     
     public async Task CommitAsync()
     {
         await DbContext.SaveChangesAsync();
     }
 
-    public void Rollback()
+    public Task RollbackAsync()
     {
-        DbContext.Dispose();
+        DbContext.ChangeTracker.Clear();
+        return Task.CompletedTask;
     }
 
-    public async Task RollbackAsync()
-    {
-        await DbContext.DisposeAsync();
-    }
-
-    public async Task Detach<TEntity>(TEntity entity) where TEntity : class
+    public void Detach<TEntity>(TEntity entity) where TEntity : class
     {
         DbContext.Entry(entity).State = EntityState.Detached;
     }
