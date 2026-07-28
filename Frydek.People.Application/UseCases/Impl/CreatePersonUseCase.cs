@@ -10,16 +10,13 @@ public class CreatePersonUseCase(
     IPersonRepository personRepository
 ) : ICreatePersonUseCase
 {
-    private IValidator<CreatePersonDto> Validator { get; } = validator;
-    private IPersonRepository PersonRepository { get; } = personRepository;
-
     public async Task<PersonDto> ExecuteAsync(CreatePersonDto dto)
     {
-        await Validator.ValidateAndThrowAsync(dto);
+        await validator.ValidateAndThrowAsync(dto);
 
         var person = dto.ToPerson();
 
-        await PersonRepository.CreateAsync(person);
+        await personRepository.CreateAsync(person);
 
         return person.ToPersonDto();
     }

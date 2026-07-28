@@ -11,14 +11,11 @@ public class UpdatePersonUseCase(
     IPersonRepository personRepository
 ) : IUpdatePersonUseCase
 {
-    private IValidator<UpdatePersonDto> Validator { get; } = validator;
-    private IPersonRepository PersonRepository { get; } = personRepository;
-
     public async Task<PersonDto> ExecuteAsync(Guid id, UpdatePersonDto dto)
     {
-        await Validator.ValidateAndThrowAsync(dto);
+        await validator.ValidateAndThrowAsync(dto);
 
-        var person = await PersonRepository.GetByIdAsync(id);
+        var person = await personRepository.GetByIdAsync(id);
 
         if (person == null)
         {
@@ -33,7 +30,7 @@ public class UpdatePersonUseCase(
             Age = dto.Age
         };
 
-        await PersonRepository.UpdateAsync(updatedPerson);
+        await personRepository.UpdateAsync(updatedPerson);
 
         return updatedPerson.ToPersonDto();
     }

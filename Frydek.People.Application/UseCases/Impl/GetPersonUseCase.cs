@@ -9,11 +9,9 @@ public class GetPersonUseCase(
     IPersonRepository personRepository
 ) : IGetPersonUseCase
 {
-    private IPersonRepository PersonRepository { get; } = personRepository;
-
     public async Task<PersonDto> ExecuteAsync(Guid id)
     {
-        var person = await PersonRepository.GetByIdAsync(id);
+        var person = await personRepository.GetByIdAsync(id);
 
         if (person is null)
         {

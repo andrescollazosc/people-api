@@ -8,11 +8,9 @@ public class GetAllPersonsUseCase(
     IPersonRepository personRepository
 ) : IGetAllPersonsUseCase
 {
-    private IPersonRepository PersonRepository { get; } = personRepository;
-
     public async Task<IEnumerable<PersonDto>> ExecuteAsync()
     {
-        var people = await PersonRepository.GetAllAsync();
+        var people = await personRepository.GetAllAsync();
 
         return people.Select(person => person.ToPersonDto());
     }

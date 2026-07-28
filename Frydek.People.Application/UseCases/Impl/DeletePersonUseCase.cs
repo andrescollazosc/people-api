@@ -7,17 +7,15 @@ public class DeletePersonUseCase(
     IPersonRepository personRepository
 ) : IDeletePersonUseCase
 {
-    private IPersonRepository PersonRepository { get; } = personRepository;
-
     public async Task ExecuteAsync(Guid id)
     {
-        var person = await PersonRepository.GetByIdAsync(id);
+        var person = await personRepository.GetByIdAsync(id);
 
         if (person == null)
         {
             throw new NotFoundException($"Person {id} was not found.");
         }
 
-        await PersonRepository.DeleteAsync(person);
+        await personRepository.DeleteAsync(person);
     }
 }

@@ -15,18 +15,12 @@ public class PersonController(
     IDeletePersonUseCase deletePersonUseCase
 ) : Controller
 {
-    private IGetPersonUseCase GetPersonUseCase { get; } = getPersonUseCase;
-    private ICreatePersonUseCase CreatePersonUseCase { get; } = createPersonUseCase;
-    private IGetAllPersonsUseCase GetAllPersonsUseCase { get; } = getAllPersonsUseCase;
-    private IUpdatePersonUseCase UpdatePersonUseCase { get; } = updatePersonUseCase;
-    private IDeletePersonUseCase DeletePersonUseCase { get; } = deletePersonUseCase;
-
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(string id)
     {
         try
         {
-            var person = await GetPersonUseCase.ExecuteAsync(Guid.Parse(id));
+            var person = await getPersonUseCase.ExecuteAsync(Guid.Parse(id));
 
             return Ok(person);
         }
@@ -39,7 +33,7 @@ public class PersonController(
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var people = await GetAllPersonsUseCase.ExecuteAsync();
+        var people = await getAllPersonsUseCase.ExecuteAsync();
 
         return Ok(people);
     }
@@ -47,7 +41,7 @@ public class PersonController(
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreatePersonDto dto)
     {
-        var person = await CreatePersonUseCase.ExecuteAsync(dto);
+        var person = await createPersonUseCase.ExecuteAsync(dto);
 
         return CreatedAtAction(nameof(Get), new { id = person.Id }, person);
     }
@@ -57,7 +51,7 @@ public class PersonController(
     {
         try
         {
-            var person = await UpdatePersonUseCase.ExecuteAsync(Guid.Parse(id), dto);
+            var person = await updatePersonUseCase.ExecuteAsync(Guid.Parse(id), dto);
 
             return Ok(person);
         }
@@ -72,7 +66,7 @@ public class PersonController(
     {
         try
         {
-            await DeletePersonUseCase.ExecuteAsync(Guid.Parse(id));
+            await deletePersonUseCase.ExecuteAsync(Guid.Parse(id));
 
             return NoContent();
         }
