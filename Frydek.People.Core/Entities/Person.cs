@@ -2,7 +2,7 @@ namespace Frydek.People.Core.Entities;
 
 public record Person
 {
-    public Guid Id { get; init; }
+    public Guid Id { get; init; } = Guid.NewGuid();
     public string FirstName { get; init; } = string.Empty;
     public string LastName { get; init; } = string.Empty;
     public int Age { get; init; }

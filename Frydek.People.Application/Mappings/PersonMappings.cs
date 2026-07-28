@@ -9,7 +9,6 @@ public static class PersonMappings
     {
         return new Person
         {
-            Id = Guid.NewGuid(),
             FirstName = personDto.FirstName,
             LastName = personDto.LastName,
             Email = personDto.Email,
