@@ -21,6 +21,18 @@ Accept: application/json
   "age": 30
 }
 
+### Update person
+PUT {{HostAddress}}/api/people/7664cb8b-0674-4e7f-97cd-d08f34fecf6e
+Content-Type: application/json
+Accept: application/json
+
+{
+  "firstName": "Vanesa Katherine",
+  "lastName": "Ortiz B",
+  "email": "vanesa.ortiz@gmail.com",
+  "age": 30
+}
+
 ### Delete person by id
 DELETE {{HostAddress}}/api/people/{{personId}}
 

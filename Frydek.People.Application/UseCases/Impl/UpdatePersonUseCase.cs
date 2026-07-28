@@ -22,16 +22,10 @@ public class UpdatePersonUseCase(
             throw new NotFoundException($"Person {id} was not found.");
         }
 
-        var updatedPerson = person with
-        {
-            FirstName = dto.FirstName,
-            LastName = dto.LastName,
-            Email = dto.Email,
-            Age = dto.Age
-        };
+        person.Update(dto.FirstName, dto.LastName, dto.Age, dto.Email);
+        
+        await personRepository.UpdateAsync(person);
 
-        await personRepository.UpdateAsync(updatedPerson);
-
-        return updatedPerson.ToPersonDto();
+        return person.ToPersonDto();
     }
 }
