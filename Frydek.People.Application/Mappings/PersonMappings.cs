@@ -16,11 +16,10 @@ public static class PersonMappings
             Age = personDto.Age
         };
     }
-    
+
     public static PersonDto ToPersonDto(this Person person)
     {
-        return new PersonDto
-        (
+        return new PersonDto(
             person.Id,
             person.FirstName,
             person.LastName,
