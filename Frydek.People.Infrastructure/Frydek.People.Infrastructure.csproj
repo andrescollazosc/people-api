@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Frydek.People.Application\Frydek.People.Application.csproj" />
+      <ProjectReference Include="..\Frydek.People.Core\Frydek.People.Core.csproj" />
     </ItemGroup>
 
 </Project>

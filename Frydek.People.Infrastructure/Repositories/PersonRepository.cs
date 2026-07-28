@@ -1,26 +1,26 @@
-using Frydek.People.Application.Repositories;
+using Frydek.People.Core.Abstractions;
 using Frydek.People.Core.Entities;
 
 namespace Frydek.People.Infrastructure.Repositories;
 
 public class PersonRepository : IPersonRepository
 {
-    public async Task Create(Person person)
+    public async Task CreateAsync(Person person)
     {
         await Task.CompletedTask;
     }
 
-    public async Task Update(Person person)
+    public async Task UpdateAsync(Person person)
     {
         await Task.CompletedTask;
     }
 
-    public async Task Delete(Person person)
+    public async Task DeleteAsync(Person person)
     {
         await Task.CompletedTask;
     }
 
-    public async Task<Person> GetById(Guid id)
+    public async Task<Person> GetByIdAsync(Guid id)
     {
         await Task.CompletedTask;
 
@@ -34,7 +34,7 @@ public class PersonRepository : IPersonRepository
         };
     }
 
-    public async Task<IEnumerable<Person>> GetAll()
+    public async Task<IEnumerable<Person>> GetAllAsync()
     {
         await Task.CompletedTask;
 

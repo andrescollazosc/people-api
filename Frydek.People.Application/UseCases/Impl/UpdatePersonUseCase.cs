@@ -1,7 +1,7 @@
 using FluentValidation;
 using Frydek.People.Application.Dtos;
 using Frydek.People.Application.Mappings;
-using Frydek.People.Application.Repositories;
+using Frydek.People.Core.Abstractions;
 using Frydek.People.Core.Exceptions;
 
 namespace Frydek.People.Application.UseCases.Impl;
@@ -18,7 +18,7 @@ public class UpdatePersonUseCase(
     {
         await Validator.ValidateAndThrowAsync(dto);
 
-        var person = await PersonRepository.GetById(id);
+        var person = await PersonRepository.GetByIdAsync(id);
 
         if (person == null)
         {
@@ -33,7 +33,7 @@ public class UpdatePersonUseCase(
             Age = dto.Age
         };
 
-        await PersonRepository.Update(updatedPerson);
+        await PersonRepository.UpdateAsync(updatedPerson);
 
         return updatedPerson.ToPersonDto();
     }

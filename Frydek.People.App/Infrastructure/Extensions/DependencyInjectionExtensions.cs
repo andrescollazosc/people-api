@@ -1,9 +1,9 @@
 using FluentValidation;
 using Frydek.People.App.Infrastructure.ExceptionHandlers;
-using Frydek.People.Application.Repositories;
 using Frydek.People.Application.UseCases;
 using Frydek.People.Application.UseCases.Impl;
 using Frydek.People.Application.Validations;
+using Frydek.People.Core.Abstractions;
 using Frydek.People.Infrastructure.Repositories;
 
 namespace Frydek.People.App.Infrastructure.Extensions;

@@ -1,7 +1,7 @@
 using FluentValidation;
 using Frydek.People.Application.Dtos;
 using Frydek.People.Application.Mappings;
-using Frydek.People.Application.Repositories;
+using Frydek.People.Core.Abstractions;
 
 namespace Frydek.People.Application.UseCases.Impl;
 
@@ -19,7 +19,7 @@ public class CreatePersonUseCase(
 
         var person = dto.ToPerson();
 
-        await PersonRepository.Create(person);
+        await PersonRepository.CreateAsync(person);
 
         return person.ToPersonDto();
     }

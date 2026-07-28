@@ -1,6 +1,6 @@
 using Frydek.People.Application.Dtos;
 using Frydek.People.Application.Mappings;
-using Frydek.People.Application.Repositories;
+using Frydek.People.Core.Abstractions;
 
 namespace Frydek.People.Application.UseCases.Impl;
 
@@ -12,7 +12,7 @@ public class GetAllPersonsUseCase(
 
     public async Task<IEnumerable<PersonDto>> ExecuteAsync()
     {
-        var people = await PersonRepository.GetAll();
+        var people = await PersonRepository.GetAllAsync();
 
         return people.Select(person => person.ToPersonDto());
     }

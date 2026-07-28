@@ -1,4 +1,4 @@
-using Frydek.People.Application.Repositories;
+using Frydek.People.Core.Abstractions;
 using Frydek.People.Core.Exceptions;
 
 namespace Frydek.People.Application.UseCases.Impl;
@@ -11,13 +11,13 @@ public class DeletePersonUseCase(
 
     public async Task ExecuteAsync(Guid id)
     {
-        var person = await PersonRepository.GetById(id);
+        var person = await PersonRepository.GetByIdAsync(id);
 
         if (person == null)
         {
             throw new NotFoundException($"Person {id} was not found.");
         }
 
-        await PersonRepository.Delete(person);
+        await PersonRepository.DeleteAsync(person);
     }
 }
