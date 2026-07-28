@@ -2,15 +2,15 @@
 @personId = 984c0d7a-a724-4ef5-84e3-8b8b00e00883
 
 ### Get all persons
-GET {{HostAddress}}/api/person
+GET {{HostAddress}}/api/people
 Accept: application/json
 
 ### Get person by id
-GET {{HostAddress}}/api/person/{{personId}}
+GET {{HostAddress}}/api/people/{{personId}}
 Accept: application/json
 
 ### Create person
-POST {{HostAddress}}/api/person
+POST {{HostAddress}}/api/people
 Content-Type: application/json
 Accept: application/json
 
@@ -22,6 +22,6 @@ Accept: application/json
 }
 
 ### Delete person by id
-DELETE {{HostAddress}}/api/person/{{personId}}
+DELETE {{HostAddress}}/api/people/{{personId}}
 
 ###

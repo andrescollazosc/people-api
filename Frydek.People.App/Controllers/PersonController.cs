@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Frydek.People.App.Controllers;
 
 [ApiController]
-[Route("api/person")]
+[Route("api/people")]
 public class PersonController(
     IGetPersonUseCase getPersonUseCase,
     ICreatePersonUseCase createPersonUseCase,
