@@ -1,85 +1,43 @@
 using Frydek.People.Core.Abstractions;
 using Frydek.People.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Frydek.People.Infrastructure.Repositories;
 
-public class PersonRepository : IPersonRepository
+public class PersonRepository(PeopleDbContext dbContext) : IPersonRepository
 {
     public async Task CreateAsync(Person person)
     {
-        await Task.CompletedTask;
+        await dbContext.People.AddAsync(person);
+        
+        await dbContext.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(Person person)
     {
-        await Task.CompletedTask;
+        dbContext.People.Update(person);
+        
+        await dbContext.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Person person)
     {
-        await Task.CompletedTask;
+        dbContext.People.Remove(person);
+        
+        await dbContext.SaveChangesAsync();
     }
 
-    public async Task<Person> GetByIdAsync(Guid id)
+    public async Task<Person?> GetByIdAsync(Guid id)
     {
-        await Task.CompletedTask;
+        var person = await dbContext.People.SingleOrDefaultAsync(p => p.Id == id);
 
-        return new Person
-        {
-            Id = id,
-            FirstName = "Andres",
-            LastName = "Collazos",
-            Age = 30,
-            Email = "andres.collazos@viirtue.com"
-        };
+        return person;
     }
 
     public async Task<IEnumerable<Person>> GetAllAsync()
     {
-        await Task.CompletedTask;
-
-        return new List<Person>
-        {
-            new()
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Andres",
-                LastName = "Collazos",
-                Age = 30,
-                Email = "andres.collazos@viirtue.com"
-            },
-            new()
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Ana",
-                LastName = "Perez",
-                Age = 25,
-                Email = "ana.perez@viirtue.com"
-            },
-            new()
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Carlos",
-                LastName = "Ramirez",
-                Age = 40,
-                Email = "carlos.ramirez@viirtue.com"
-            },
-            new()
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Lucia",
-                LastName = "Gomez",
-                Age = 28,
-                Email = "lucia.gomez@viirtue.com"
-            },
-            new()
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Diego",
-                LastName = "Martinez",
-                Age = 35,
-                Email = "diego.martinez@viirtue.com"
-            }
-        };
+        var people = await dbContext.People.ToListAsync();
+        
+        return people;
     }
 }

@@ -15,9 +15,9 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "firstName": "Andres",
-  "lastName": "Collazos",
-  "email": "andres.collazos@viirtue.com",
+  "firstName": "Vanesa",
+  "lastName": "Ortiz",
+  "email": "vanesa.ortiz@gmail.com",
   "age": 30
 }
 
