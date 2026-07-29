@@ -22,9 +22,4 @@ public class EfUnitOfWork<T> : IUnitOfWork where T : DbContext
         DbContext.ChangeTracker.Clear();
         return Task.CompletedTask;
     }
-
-    public void Detach<TEntity>(TEntity entity) where TEntity : class
-    {
-        DbContext.Entry(entity).State = EntityState.Detached;
-    }
 }
