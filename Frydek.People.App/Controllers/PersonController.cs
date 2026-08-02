@@ -1,6 +1,5 @@
 using Frydek.People.Application.Dtos;
 using Frydek.People.Application.UseCases;
-using Frydek.People.Core.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Frydek.People.App.Controllers;
@@ -18,16 +17,9 @@ public class PersonController(
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(string id)
     {
-        try
-        {
-            var person = await getPersonUseCase.ExecuteAsync(Guid.Parse(id));
+        var person = await getPersonUseCase.ExecuteAsync(Guid.Parse(id));
 
-            return Ok(person);
-        }
-        catch (NotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
+        return Ok(person);
     }
 
     [HttpGet]
@@ -49,31 +41,16 @@ public class PersonController(
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(string id, [FromBody] UpdatePersonDto dto)
     {
-        try
-        {
-            var person = await updatePersonUseCase.ExecuteAsync(Guid.Parse(id), dto);
+        var person = await updatePersonUseCase.ExecuteAsync(Guid.Parse(id), dto);
 
-            return Ok(person);
-        }
-        catch (NotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
+        return Ok(person);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
-        try
-        {
-            await deletePersonUseCase.ExecuteAsync(Guid.Parse(id));
+        await deletePersonUseCase.ExecuteAsync(Guid.Parse(id));
 
-            return NoContent();
-        }
-        catch (NotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
+        return NoContent();
     }
-
 }

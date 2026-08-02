@@ -52,6 +52,7 @@ public static class DependencyInjectionExtensions
     private static IServiceCollection RegisterExceptionHandlers(this IServiceCollection services)
     {
         services.AddExceptionHandler<ValidationExceptionHandler>();
+        services.AddExceptionHandler<NotFoundExceptionHandler>();
         services.AddProblemDetails();
 
         return services;
