@@ -5,24 +5,30 @@ namespace Frydek.People.Application.Mappings;
 
 public static class PersonMappings
 {
-    public static Person ToPerson(this CreatePersonDto personDto)
+    extension(CreatePersonDto personDto)
     {
-        return new Person(
-            personDto.FirstName,
-            personDto.LastName,
-            personDto.Email,
-            personDto.Age
-        );
+        public Person ToPerson()
+        {
+            return new Person(
+                personDto.FirstName,
+                personDto.LastName,
+                personDto.Email,
+                personDto.Age
+            );
+        }
     }
 
-    public static PersonDto ToPersonDto(this Person person)
+    extension(Person person)
     {
-        return new PersonDto(
-            person.Id,
-            person.FirstName,
-            person.LastName,
-            person.Email,
-            person.Age
-        );
+        public PersonDto ToPersonDto()
+        {
+            return new PersonDto(
+                person.Id,
+                person.FirstName,
+                person.LastName,
+                person.Email,
+                person.Age
+            );
+        }
     }
 }

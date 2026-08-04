@@ -14,68 +14,71 @@ namespace Frydek.People.App.Infrastructure.Extensions;
 
 public static class DependencyInjectionExtensions
 {
-    public static IServiceCollection RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
+    extension(IServiceCollection services)
     {
-        return services
-            .RegisterRepositories()
-            .RegisterUseCases()
-            .RegisterValidators()
-            .RegisterExceptionHandlers()
-            .RegisterDatabases(configuration);
-    }
-
-    private static IServiceCollection RegisterRepositories(this IServiceCollection services)
-    {
-        services.AddScoped<IPersonRepository, PersonRepository>();
-
-        return services;
-    }
-
-    private static IServiceCollection RegisterUseCases(this IServiceCollection services)
-    {
-        services.AddScoped<IGetPersonUseCase, GetPersonUseCase>();
-        services.AddScoped<ICreatePersonUseCase, CreatePersonUseCase>();
-        services.AddScoped<IGetAllPersonsUseCase, GetAllPersonsUseCase>();
-        services.AddScoped<IUpdatePersonUseCase, UpdatePersonUseCase>();
-        services.AddScoped<IDeletePersonUseCase, DeletePersonUseCase>();
-        
-        return services;
-    }
-
-    private static IServiceCollection RegisterValidators(this IServiceCollection services)
-    {
-        services.AddValidatorsFromAssemblyContaining<CreatePersonDtoValidator>();
-
-        return services;
-    }
-
-    private static IServiceCollection RegisterExceptionHandlers(this IServiceCollection services)
-    {
-        services.AddExceptionHandler<ValidationExceptionHandler>();
-        services.AddExceptionHandler<NotFoundExceptionHandler>();
-        services.AddProblemDetails();
-
-        return services;
-    }
-
-    private static IServiceCollection RegisterDatabases(this IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddSingleton<NpgsqlDataSource>(_ =>
+        public IServiceCollection RegisterDependencies(IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DB_POSTGRES_PEOPLE")
-                ?? throw new InvalidOperationException(
-                    "Connection string 'DB_POSTGRES_PEOPLE' is not configured.");
+            return services
+                .RegisterRepositories()
+                .RegisterUseCases()
+                .RegisterValidators()
+                .RegisterExceptionHandlers()
+                .RegisterDatabases(configuration);
+        }
 
-            return new NpgsqlDataSourceBuilder(connectionString)
-                .EnableDynamicJson()
-                .Build();
-        });
+        private IServiceCollection RegisterRepositories()
+        {
+            services.AddScoped<IPersonRepository, PersonRepository>();
 
-        services.AddDbContext<PeopleDbContext>((sp, options) =>
-            options.UseNpgsql(sp.GetRequiredService<NpgsqlDataSource>()));
+            return services;
+        }
 
-        services.AddScoped<IUnitOfWork, EfUnitOfWork<PeopleDbContext>>();
+        private IServiceCollection RegisterUseCases()
+        {
+            services.AddScoped<IGetPersonUseCase, GetPersonUseCase>();
+            services.AddScoped<ICreatePersonUseCase, CreatePersonUseCase>();
+            services.AddScoped<IGetAllPersonsUseCase, GetAllPersonsUseCase>();
+            services.AddScoped<IUpdatePersonUseCase, UpdatePersonUseCase>();
+            services.AddScoped<IDeletePersonUseCase, DeletePersonUseCase>();
+        
+            return services;
+        }
 
-        return services;
+        private IServiceCollection RegisterValidators()
+        {
+            services.AddValidatorsFromAssemblyContaining<CreatePersonDtoValidator>();
+
+            return services;
+        }
+
+        private IServiceCollection RegisterExceptionHandlers()
+        {
+            services.AddExceptionHandler<ValidationExceptionHandler>();
+            services.AddExceptionHandler<NotFoundExceptionHandler>();
+            services.AddProblemDetails();
+
+            return services;
+        }
+
+        private IServiceCollection RegisterDatabases(IConfiguration configuration)
+        {
+            services.AddSingleton<NpgsqlDataSource>(_ =>
+            {
+                var connectionString = configuration.GetConnectionString("DB_POSTGRES_PEOPLE")
+                                       ?? throw new InvalidOperationException(
+                                           "Connection string 'DB_POSTGRES_PEOPLE' is not configured.");
+
+                return new NpgsqlDataSourceBuilder(connectionString)
+                    .EnableDynamicJson()
+                    .Build();
+            });
+
+            services.AddDbContext<PeopleDbContext>((sp, options) =>
+                options.UseNpgsql(sp.GetRequiredService<NpgsqlDataSource>()));
+
+            services.AddScoped<IUnitOfWork, EfUnitOfWork<PeopleDbContext>>();
+
+            return services;
+        }
     }
 }
