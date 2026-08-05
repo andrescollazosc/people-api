@@ -76,8 +76,8 @@ Frydek.People.Application.Tests (unit tests)
 
 ### Stack and conventions
 
-Stack: .NET 9, ASP.NET Core controllers, FluentValidation, native
-`Microsoft.AspNetCore.OpenApi` (no Swashbuckle), EF Core 9 with Npgsql
+Stack: .NET 10, ASP.NET Core controllers, FluentValidation, native
+`Microsoft.AspNetCore.OpenApi` (no Swashbuckle), EF Core 10 with Npgsql
 (PostgreSQL) for persistence, NUnit 4 + NSubstitute for tests. DTOs use
 `record` types; `Person` is a class with an encapsulated `Update()`
 method. Controllers and use cases use primary constructors.

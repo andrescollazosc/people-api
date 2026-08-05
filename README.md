@@ -1,11 +1,11 @@
 # Frydek People API
 
-Sample .NET 9 Web API used as a Clean Architecture playground and a
+Sample .NET 10 Web API used as a Clean Architecture playground and a
 testbed for AI-assisted development workflows.
 
 ## Stack
 
-.NET 9, ASP.NET Core, EF Core 9 + Npgsql (PostgreSQL), FluentValidation,
+.NET 10, ASP.NET Core, EF Core 10 + Npgsql (PostgreSQL), FluentValidation,
 NUnit 4 + NSubstitute for tests.
 
 ## Structure
