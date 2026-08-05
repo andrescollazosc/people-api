@@ -135,3 +135,6 @@ $RECYCLE.BIN/
 .env.*
 secrets.json
 appsettings.*.local.json
+
+# graphify knowledge graph output
+graphify-out/
